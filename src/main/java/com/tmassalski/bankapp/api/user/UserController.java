@@ -34,7 +34,7 @@ class UserController {
     }
 
     @GetMapping(value = "/{userId}")
-    ResponseEntity<User> findbyId (@PathVariable long userId) {
+    ResponseEntity<User> findById (@PathVariable long userId) {
         return ResponseEntity.ok(userFacade.getUserById(userId));
     }
 }
