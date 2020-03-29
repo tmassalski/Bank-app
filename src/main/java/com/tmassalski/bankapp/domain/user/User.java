@@ -1,6 +1,7 @@
 package com.tmassalski.bankapp.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tmassalski.bankapp.domain.Auditable;
 import com.tmassalski.bankapp.domain.account.Account;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class User {
+public class User extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "user_sequence")

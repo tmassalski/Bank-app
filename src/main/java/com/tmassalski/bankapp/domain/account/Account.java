@@ -1,5 +1,6 @@
 package com.tmassalski.bankapp.domain.account;
 
+import com.tmassalski.bankapp.domain.Auditable;
 import com.tmassalski.bankapp.domain.user.User;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,7 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
-public class Account {
+public class Account extends Auditable {
 
     private static final BigDecimal initialFee = BigDecimal.ZERO;
     private static final BigDecimal initialBalance = BigDecimal.ZERO;
