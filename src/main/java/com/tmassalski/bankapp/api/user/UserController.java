@@ -30,7 +30,7 @@ class UserController {
                 .login(request.getLogin())
                 .password(request.getPassword())
                 .build();
-        userFacade.create(userCommand);
+        userFacade.createUser(userCommand);
     }
 
     @GetMapping(value = "/{userId}")

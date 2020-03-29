@@ -10,8 +10,8 @@ public class UserFacade {
     private final UserCreator userCreator;
     private final UserRetrievalClient userRetrievalClient;
 
-    public void create(UserCommand userCommand){
-        userCreator.create(userCommand);
+    public void createUser(UserCommand userCommand){
+        userCreator.createUser(userCommand);
     }
 
     public User getUserById(Long userId) {
