@@ -60,7 +60,8 @@ public class User extends Auditable {
         if (accounts == null) {
             accounts = new HashSet<>();
         }
-        this.accounts.add(account);
+        accounts.add(account);
+        account.setUser(this);
     }
 
     static User generate(UserCommand userCommand) {
