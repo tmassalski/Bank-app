@@ -21,8 +21,7 @@ public class RetrieveAccountPostgresClient implements RetrieveAccountClient {
     }
 
     @Override
-    public Account findByAccountNumber(String accountNumber) {
-        Optional<Account> optionalAccount = accountRepository.findByAccountNumber(accountNumber);
-        return optionalAccount.orElseThrow(() -> AccountException.accountNotFound(accountNumber));
+    public Optional<Account> findByAccountNumber(String accountNumber) {
+        return accountRepository.findByAccountNumber(accountNumber);
     }
 }
