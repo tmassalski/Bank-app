@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -20,9 +21,7 @@ public class TransferFacade {
     public void processTransfer(TransferCommand command) {
         Account recipientAccount = retrieveAccountClient.findById(command.getOwnerId());
         Optional<Account> optionalSenderAccount = retrieveAccountClient.findByAccountNumber(command.getSenderAccountNumber());
-        if (optionalSenderAccount.isPresent()) {
-            optionalSenderAccount.get().reduceBalance(command.getAmount());
-        }
+        optionalSenderAccount.ifPresent(account -> account.reduceBalance(command.getAmount()));
         recipientAccount.increaseBalance(command.getAmount());
         Transfer transfer =  transferCreator.generate(command, recipientAccount.getAccountNumber());
         createTransferClient.save(transfer);

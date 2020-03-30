@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,13 +23,21 @@ class TransferController {
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
     void processTransfer(@Valid @RequestBody TransferRequest request) {
-        TransferCommand transferCommand = TransferCommand.builder()
+        transferFacade.processTransfer(transferCommandBuilder(request));
+    }
+
+    @PostMapping("/pending")
+    void processPendingTransfers(@Valid @RequestBody Set<TransferRequest> requestSet) {
+        requestSet.forEach(transferRequest -> transferFacade.processTransfer(transferCommandBuilder(transferRequest)));
+    }
+
+    TransferCommand transferCommandBuilder(TransferRequest request) {
+        return TransferCommand.builder()
                 .ownerId(request.getOwnerId())
                 .ownerAccountId(request.getOwnerAccountId())
                 .senderAccountNumber(request.getClientAccountNumber())
                 .amount(request.getAmount())
                 .title(request.getTitle())
                 .build();
-        transferFacade.processTransfer(transferCommand);
     }
 }
