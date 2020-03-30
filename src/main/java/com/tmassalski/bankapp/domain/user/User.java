@@ -17,6 +17,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,7 +31,8 @@ import java.util.Set;
 public class User extends Auditable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "user_sequence")
+    @GeneratedValue(generator = "user_sequence")
+    @SequenceGenerator(name = "user_sequence", initialValue = 3, allocationSize = 1)
     @JsonIgnore
     @Setter(value = AccessLevel.PRIVATE)
     private Long id;

@@ -19,10 +19,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import java.math.BigDecimal;
 
 @Entity
 @Getter
+@Setter(value = AccessLevel.PACKAGE)
 @Builder
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
@@ -33,6 +35,7 @@ public class Account extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "account_sequence")
+    @SequenceGenerator(name = "account_sequence", initialValue = 3, allocationSize = 1)
     private long id;
 
     @Column(unique = true)
@@ -54,12 +57,12 @@ public class Account extends Auditable {
                 .build();
     }
 
-    void increaseBalance(BigDecimal amountToAdd) {
+    public void increaseBalance(BigDecimal amountToAdd) {
         balance = balance.add(amountToAdd);
     }
 
-    void reduceBalance(BigDecimal amountToSubtract) {
-        if (balance.compareTo(amountToSubtract)<0) {
+    public void reduceBalance(BigDecimal amountToSubtract) {
+        if (balance.compareTo(amountToSubtract) < 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not enough funds to complete this operation");
         } else {
             balance = balance.subtract(amountToSubtract);

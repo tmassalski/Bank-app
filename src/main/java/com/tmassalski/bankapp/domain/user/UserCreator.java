@@ -13,6 +13,6 @@ class UserCreator {
     @Transactional
     void createUser(UserCommand userCommand) {
         User user = User.generate(userCommand);
-        createUserClient.create(user);
+        createUserClient.save(user);
     }
 }

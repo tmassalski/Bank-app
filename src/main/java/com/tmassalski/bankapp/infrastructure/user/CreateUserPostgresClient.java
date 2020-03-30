@@ -12,7 +12,7 @@ public class CreateUserPostgresClient implements CreateUserClient {
     private final UserRepository userRepository;
 
     @Override
-    public void create(User user) {
+    public void save(User user) {
         userRepository.save(user);
     }
 }
