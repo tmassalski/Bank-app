@@ -26,11 +26,6 @@ class TransferController {
         transferFacade.processTransfer(transferCommandBuilder(request));
     }
 
-    @PostMapping("/pending")
-    void processPendingTransfers(@Valid @RequestBody Set<TransferRequest> requestSet) {
-        requestSet.forEach(transferRequest -> transferFacade.processTransfer(transferCommandBuilder(transferRequest)));
-    }
-
     TransferCommand transferCommandBuilder(TransferRequest request) {
         return TransferCommand.builder()
                 .ownerId(request.getOwnerId())
