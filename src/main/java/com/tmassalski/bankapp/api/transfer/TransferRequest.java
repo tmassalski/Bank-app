@@ -1,6 +1,8 @@
 package com.tmassalski.bankapp.api.transfer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -11,7 +13,8 @@ import java.math.BigDecimal;
 
 @Builder
 @Getter
-class TransferRequest {
+@JsonDeserialize(builder = TransferRequest.TransferRequestBuilder.class)
+public class TransferRequest {
 
     @Min(1)
     private final long ownerId;
@@ -28,4 +31,8 @@ class TransferRequest {
 
     @NotBlank
     private final String title;
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class TransferRequestBuilder {
+    }
 }
